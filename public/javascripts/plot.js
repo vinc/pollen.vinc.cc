@@ -92,6 +92,10 @@ $(function() {
   var limit;
 
   $.getJSON("/api/sites", function(res) {
+    var markers = L.markerClusterGroup({
+      showCoverageOnHover: false
+    });
+
     res.sort(function(a, b) {
       return a.sitename + a.sigle > b.sitename + b.sigle;
     }).forEach(function(row) {
@@ -100,20 +104,20 @@ $(function() {
 
       $("#select-site").append(new Option(title, value));
 
-      if (-10 < row.londd && row.londd < 0) {
-        if (46 < row.latdd && row.latdd < 50) {
-          L.marker([row.latdd, row.londd], { icon: L.divIcon() })
-            .addTo(map)
-            .on("click", function(e) {
-              console.debug("click on marker '" + value + "'");
-              $("#select-site").val(value);
-              site = row.sigle;
-              updatePlot(site, limit);
-              updateMap(site);
-            });
-        }
-      }
+      var marker = L.marker([row.latdd, row.londd], { icon: L.divIcon() });
+
+      marker.on("click", function(e) {
+        console.debug("click on marker '" + value + "'");
+        $("#select-site").val(value);
+        site = row.sigle;
+        updatePlot(site, limit);
+        updateMap(site);
+      });
+
+      markers.addLayer(marker);
     });
+
+    map.addLayer(markers);
 
     site = res[0].sigle; // TODO: check res.length
     limit = 1; // TODO: check number of taxons, then use checkbox
