@@ -7,9 +7,9 @@ Chart the [European Pollen Database](http://www.europeanpollendatabase.net/)
 Synopsis
 --------
 
-[Pollen Chart](https://pollen.vinc.cc) is a website dedicated to helping
+[Pollen Chart](https://pollen.vinc.cc) is a website dedicated to help
 exploring the [European Pollen Database](http://www.europeanpollendatabase.net/)
-for a better understanding of our environment in the past.
+for a better understanding of our environment.
 
 
 Installation
