@@ -1,20 +1,22 @@
 var express = require('express');
 var pg = require('pg');
+var url = require('url');
+
+// The Pool constructor does not support passing a Database URL as the
+// parameter like `var client = new pg.Client(process.env.DATABASE_URL);`.
+
+var params = url.parse(process.env.DATABASE_URL);
+var auth = params.auth.split(':');
+var config = {
+  user: auth[0],
+  password: auth[1],
+  host: params.hostname,
+  port: params.port,
+  database: params.pathname.split('/')[1],
+};
+var pool = new pg.Pool(config);
 
 var router = express.Router();
-var client = new pg.Client();
-
-var config = {
-  user: 'v', //env var: PGUSER
-  database: 'epd', //env var: PGDATABASE
-  password: '', //env var: PGPASSWORD
-  host: 'localhost', // Server hosting the postgres database
-  port: 5432, //env var: PGPORT
-  max: 10, // max number of clients in the pool
-  idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-};
-
-var pool = new pg.Pool(config);
 
 /* GET sites listing. */
 router.get('/', function(req, res, next) {
