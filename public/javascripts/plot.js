@@ -111,8 +111,8 @@ $(function() {
   };
 
   var map = L.map("map", {
-    center: [48, -2],
-    zoom: 7
+    center: [47, 7],
+    zoom: 4
   });
 
   var layer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
