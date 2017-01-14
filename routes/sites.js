@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
       return console.error('error fetching client from pool', err);
     }
     client.query(`
-      SELECT DISTINCT entity.sigle, siteloc.sitename, siteloc.latdd, siteloc.londd, siteloc.elevation
+      SELECT DISTINCT entity.sigle, entity.entloc, entity.localveg, entity.sampdate, entity.depthatloc, entity.sampdevice, entity.corediamcm, entity.notes, siteloc.sitename, siteloc.latdd, siteloc.londd, siteloc.elevation
         FROM entity, siteloc
         WHERE
           entity.site_ = siteloc.site_
@@ -48,7 +48,7 @@ router.get('/:sigle', function(req, res, next) {
       return console.error('error fetching client from pool', err);
     }
     client.query(`
-      SELECT DISTINCT entity.sigle, siteloc.sitename, siteloc.latdd, siteloc.londd, siteloc.elevation
+      SELECT DISTINCT entity.sigle, entity.entloc, entity.localveg, entity.sampdate, entity.depthatloc, entity.sampdevice, entity.corediamcm, entity.notes, siteloc.sitename, siteloc.latdd, siteloc.londd, siteloc.elevation
         FROM entity, siteloc
         WHERE
           entity.sigle    = $1 AND

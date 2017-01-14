@@ -7,6 +7,22 @@ body {
   }
 }
 
+dl {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  width: 100%;
+
+  dt, dd {
+    flex-basis: 50%;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+  dd {
+    margin-left: auto;
+  }
+}
+
 #map {
   .leaflet-div-icon {
     border-radius: 50%;

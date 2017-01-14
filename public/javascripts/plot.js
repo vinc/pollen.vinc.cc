@@ -46,7 +46,10 @@ $(function() {
 
       map.setView(L.latLng(res.latdd, res.londd));
       $("#site-title").text(res.sitename + " (" + res.sigle + ")");
+      $("#site-sampdate").text(res.sampdate);
       $("#site-elevation").text(res.elevation);
+      $("#site-entloc").text(res.entloc);
+      $("#site-notes").text(res.notes);
     });
   };
 
