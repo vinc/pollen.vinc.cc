@@ -28,6 +28,7 @@ $(function() {
     $.getJSON("/api/sites/" + site, function(res) {
       //var marker = L.marker([res.latdd, res.londd]).addTo(map);
 
+      map.setView(L.latLng(res.latdd, res.londd));
       $("#site-title").text(res.sitename + " (" + res.sigle + ")");
       $("#site-elevation").text(res.elevation);
     });
