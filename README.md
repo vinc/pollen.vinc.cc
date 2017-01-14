@@ -29,6 +29,6 @@ of the EPD and download a Postgres archive of the database:
     $ sed -i "s/epd\|wwwadm/$POSTGRES_USER/g" dumpall_epd_db.sql
     $ psql $POSTGRES_DATABASE < dumpall_epd_db.sql
 
-Where `$POSTGRES_DATABASE` is your database and `$POSTGRES_USER` your
-database user. Alternatively you can create the two required users, `epd` and
-`wwwadm` instead of altering the dump.
+Where `$POSTGRES_DATABASE` is your database and `$POSTGRES_USER` your database
+user. You can avoid altering the dump by creating the two required users `epd`
+and `wwwadm` instead.
