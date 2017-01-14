@@ -1,5 +1,27 @@
 $(function() {
 
+  var plot = new Chart($("#plot"), {
+    type: "line",
+    data: {
+      datasets: []
+    },
+    options: {
+      animation: false,
+      legend: {
+        label: {
+        }
+      },
+      scales: {
+        xAxes: [
+          {
+            type: "linear",
+            position: "bottom"
+          }
+        ]
+      }
+    }
+  });
+
   var updateMap = function(site) {
     console.debug("updating map");
 
@@ -49,36 +71,15 @@ $(function() {
       }).slice(0, limit).map(function(row, i) {
         return Object.assign(row, {
           fill: false,
-          borderColor:          "hsla(" + i * 360 / limit + ", 50%, 60%, 0.50)",
+          backgroundColor:      "hsla(" + i * 360 / limit + ", 50%, 60%, 0.25)",
+          borderColor:          "hsla(" + i * 360 / limit + ", 50%, 60%, 0.25)",
           pointBorderColor:     "hsla(" + i * 360 / limit + ", 50%, 60%, 0.75)",
           pointBackgroundColor: "hsla(" + i * 360 / limit + ", 50%, 60%, 0.75)"
         });
       });
 
-      var data = {
-        datasets: datasets
-      };
-
-      var options = {
-        animation: false,
-        scales: {
-          xAxes: [
-            {
-              type: "linear",
-              position: "bottom"
-            }
-          ]
-        }
-      };
-
-      var ctx = $("#plot");
-      var plot = new Chart(ctx, {
-        type: "line",
-        //xAxisID: "agebp",
-        //yAxisID: "count",
-        data: data,
-        options: options
-      });
+      plot.data.datasets = datasets;
+      plot.update();
     });
   };
 
@@ -103,11 +104,17 @@ $(function() {
       showCoverageOnHover: false
     });
 
-    res.sort(function(a, b) {
+    // TODO: do that server side
+    res = res.sort(function(a, b) {
       return a.sitename + a.sigle > b.sitename + b.sigle;
-    }).forEach(function(row) {
+    });
+
+    site = res[0].sigle.toLowerCase(); // TODO: check res.length
+
+    // Add markers on map
+    res.forEach(function(row) {
       var title = row.sitename + " (" + row.sigle + ")";
-      var value = row.sigle;
+      var value = row.sigle.toLowerCase();
 
       $("#select-site").append(new Option(title, value));
 
@@ -123,20 +130,18 @@ $(function() {
 
       markers.addLayer(marker);
     });
-
     map.addLayer(markers);
-
-    site = res[0].sigle; // TODO: check res.length
-    limit = 1; // TODO: check number of taxons, then use checkbox
-
-    updatePlot(site, types, limit);
     updateMap(site);
+
+    $("#select-site").val(site);
+    updatePlot(site, types, limit);
   });
 
-  // TODO: Update it
   for (var i = 1; i <= numberOfTaxons; i++) {
     $("#select-limit").append(new Option(i, i));
   }
+  limit = $("#select-limit").val() || 1;
+  $("#select-limit").val(limit);
 
   $("#select-site").change(function() {
     site = $("#select-site").val();
