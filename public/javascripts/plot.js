@@ -11,10 +11,14 @@ $(function() {
     });
   };
 
-  var updatePlot = function(site, limit) {
+  var updatePlot = function(site, types, limit) {
     console.debug("updating plot");
 
-    $.getJSON("/api/sites/" + site + "/samples", function(res) {
+    var querySite = site.toLowerCase();
+    var queryTypes = types.join(",").toLowerCase();
+    var url = "/api/sites/" + querySite + "/samples?types=" + queryTypes;
+
+    $.getJSON(url, function(res) {
       var taxons = { };
 
       res = res.sort(function(a, b) {
@@ -82,7 +86,7 @@ $(function() {
     center: [48, -2],
     zoom: 7
   });
-  
+
   var layer = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
     attribution: '<a href="http://osm.org/copyright/">OpenStreetMap</a> contributors'
   }).addTo(map);
@@ -90,6 +94,9 @@ $(function() {
   var numberOfTaxons = 10; // TODO
   var site;
   var limit;
+  var types = $("#select-types").val() || ["TRSH"];
+
+  $("#select-types").val(types);
 
   $.getJSON("/api/sites", function(res) {
     var markers = L.markerClusterGroup({
@@ -110,7 +117,7 @@ $(function() {
         console.debug("click on marker '" + value + "'");
         $("#select-site").val(value);
         site = row.sigle;
-        updatePlot(site, limit);
+        updatePlot(site, types, limit);
         updateMap(site);
       });
 
@@ -122,25 +129,31 @@ $(function() {
     site = res[0].sigle; // TODO: check res.length
     limit = 1; // TODO: check number of taxons, then use checkbox
 
-    updatePlot(site, limit);
+    updatePlot(site, types, limit);
     updateMap(site);
   });
 
   // TODO: Update it
-  for (var i = 1; i <= numberOfTaxons; i++) { 
-    $("#select-taxons").append(new Option(i, i)); 
+  for (var i = 1; i <= numberOfTaxons; i++) {
+    $("#select-limit").append(new Option(i, i));
   }
 
   $("#select-site").change(function() {
     site = $("#select-site").val();
     console.debug("changing site: " + site);
-    updatePlot(site, limit);
+    updatePlot(site, types, limit);
     updateMap(site);
   });
 
-  $("#select-taxons").change(function() {
-    limit = $("#select-taxons").val();
+  $("#select-limit").change(function() {
+    limit = $("#select-limit").val();
     console.debug("changing limit: " + limit);
-    updatePlot(site, limit);
+    updatePlot(site, types, limit);
+  });
+
+  $("#select-types").change(function() {
+    types = $("#select-types").val();
+    console.debug("changing types: " + types);
+    updatePlot(site, types, limit);
   });
 });
