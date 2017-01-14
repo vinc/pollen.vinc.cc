@@ -1,0 +1,23 @@
+{
+  "name": "pollen",
+  "description": "Generate plots from European Pollen Database",
+  "main": "app.js",
+  "authors": [
+    "Vincent Ollivier <v@vinc.cc>"
+  ],
+  "license": "MIT",
+  "homepage": "https://pollen.vinc.cc",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "chart.js": "^2.4.0",
+    "leaflet": "^1.0.2"
+  }
+}
