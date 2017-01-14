@@ -38,7 +38,7 @@ $(function() {
     }
   });
 
-  var updateMap = function(site) {
+  var updateSite = function(site) {
     console.debug("updating map");
 
     $.getJSON("/api/sites/" + site, function(res) {
@@ -50,6 +50,9 @@ $(function() {
       $("#site-elevation").text(res.elevation);
       $("#site-entloc").text(res.entloc);
       $("#site-notes").text(res.notes);
+
+      $("#site-help").hide();
+      $("#site-informations").show();
     });
   };
 
@@ -100,6 +103,7 @@ $(function() {
 
       plot.data.datasets = datasets;
       plot.update();
+      $("#plot-wrapper").show();
     });
   };
 
@@ -129,8 +133,6 @@ $(function() {
       return a.sitename + a.sigle > b.sitename + b.sigle;
     });
 
-    site = res[0].sigle.toLowerCase(); // TODO: check res.length
-
     // Add markers on map
     res.forEach(function(row) {
       var title = row.sitename + " (" + row.sigle + ")";
@@ -145,16 +147,12 @@ $(function() {
         $("#select-site").val(value);
         site = row.sigle;
         updatePlot(site, types, limit);
-        updateMap(site);
+        updateSite(site);
       });
 
       markers.addLayer(marker);
     });
     map.addLayer(markers);
-    updateMap(site);
-
-    $("#select-site").val(site);
-    updatePlot(site, types, limit);
   });
 
   for (var i = 1; i <= numberOfTaxons; i++) {
@@ -167,7 +165,7 @@ $(function() {
     site = $("#select-site").val();
     console.debug("changing site: " + site);
     updatePlot(site, types, limit);
-    updateMap(site);
+    updateSite(site);
   });
 
   $("#select-limit").change(function() {
