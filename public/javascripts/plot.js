@@ -7,6 +7,7 @@ $(function() {
     },
     options: {
       animation: false,
+      maintainAspectRatio: false,
       legend: {
         label: {
         }
@@ -15,13 +16,21 @@ $(function() {
         xAxes: [
           {
             type: "linear",
-            position: "bottom"
+            position: "bottom",
+            scaleLabel: {
+              display: true,
+              labelString: "Year cal BP"
+            }
           }
         ],
         yAxes: [
           {
             ticks: {
               beginAtZero: true,
+            },
+            scaleLabel: {
+              display: true,
+              labelString: "Pollen count"
             }
           }
         ]
