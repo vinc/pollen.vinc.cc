@@ -125,7 +125,8 @@ $(function() {
 
   $.getJSON("/api/sites", function(res) {
     var markers = L.markerClusterGroup({
-      showCoverageOnHover: false
+      showCoverageOnHover: false,
+      chunkedLoading: true,
     });
 
     // TODO: do that server side

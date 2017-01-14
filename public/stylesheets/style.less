@@ -24,13 +24,21 @@ dl {
 }
 
 #map {
+  @marker-color: hsla(0, 100%, 80%, 0.6);
+
   .leaflet-div-icon {
     border-radius: 50%;
-    background: hsl(0, 100%, 80%);
-    border: solid 2px hsl(0, 100%, 70%);
-    width: 10px !important;
-    height: 10px !important;
+    background-color: hsla(0, 100%, 70%, 0.8) !important;
+    border: none;
+    width: 16px !important;
+    height: 16px !important;
     margin: 0 !important;
+  }
+  .marker-cluster {
+    background-color: @marker-color !important;
+    > div {
+      background-color: @marker-color !important;
+    }
   }
 }
 
