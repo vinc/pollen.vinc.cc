@@ -1,4 +1,5 @@
 <h1>{{title}}</h1>
+<p>Chart the <a href="http://www.europeanpollendatabase.net/">European Pollen Database</a></p>
 
 <div style="display:flex">
   <div id="map" style="width:50%;height:400px;background:#f6f6f6"></div>
@@ -10,24 +11,29 @@
 
 <br>
 
-<label>Site:
-  <select id="select-site" size=5></select>
-</label>
-<label>Type:
-  <select id="select-types" size=5 multiple>
-    <option selected>TRSH</option>
-    <option>HERB</option>
-  </select>
-</label>
-<label>Limit:
-  <select id="select-limit" size=5></select>
-</label>
+<div style="display:flex">
+  <div class="row" style="width:60%">
+    <label for="select-site">Site:</label>
+    <select id="select-site" size=5 style="width:100%;margin-top:5px"></select>
+  </div>
+  <div class="row" style="width:20%;margin-left:10px">
+    <label for="select-types">Type:</label>
+    <select id="select-types" size=5 style="width:100%;margin-top:5px" multiple>
+      <option selected>TRSH</option>
+      <option>HERB</option>
+    </select>
+  </div>
+  <div class="row" style="width:20%;margin-left:10px">
+    <label for="select-limit">Limit:</label>
+    <select id="select-limit" size=5 style="width:100%;margin-top:5px"></select>
+  </div>
+</div>
 
 <br>
 <br>
 
-<div style="width:100%;height:400px;background:#f6f6f6">
-  <canvas id="plot"></canvas>
+<div style="width:100%;height:400px">
+  <canvas id="plot" style="background:#f6f6f6"></canvas>
 </div>
 
 <link rel="stylesheet" href="/components/leaflet/dist/leaflet.css" />

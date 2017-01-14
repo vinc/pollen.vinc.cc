@@ -17,6 +17,13 @@ $(function() {
             type: "linear",
             position: "bottom"
           }
+        ],
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            }
+          }
         ]
       }
     }
