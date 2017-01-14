@@ -115,7 +115,7 @@ $(function() {
     zoom: 7
   });
 
-  var layer = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+  var layer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '<a href="http://osm.org/copyright/">OpenStreetMap</a> contributors'
   }).addTo(map);
 
