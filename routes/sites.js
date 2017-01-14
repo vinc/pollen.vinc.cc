@@ -22,11 +22,14 @@ router.get('/', function(req, res, next) {
     if(err) {
       return console.error('error fetching client from pool', err);
     }
+    // TODO: Remove unused attributes
     client.query(`
-      SELECT DISTINCT entity.sigle, entity.entloc, entity.localveg, entity.sampdate, entity.depthatloc, entity.sampdevice, entity.corediamcm, entity.notes, siteloc.sitename, siteloc.latdd, siteloc.londd, siteloc.elevation
-        FROM entity, siteloc
+      SELECT DISTINCT entity.sigle, entity.entloc, entity.localveg, entity.sampdate, entity.depthatloc, entity.sampdevice, entity.corediamcm, entity.notes, descr.description, sitedesc.sitedescript, sitedesc.physiography, sitedesc.surroundveg, siteloc.sitename, siteloc.latdd, siteloc.londd, siteloc.elevation
+        FROM entity, descr, sitedesc, siteloc
         WHERE
-          entity.site_ = siteloc.site_
+          entity.site_      = siteloc.site_ AND
+          entity.site_      = sitedesc.site_ AND
+          entity.descriptor = descr.descriptor
         ORDER BY entity.sigle
       `, function(err, result) {
 
@@ -48,11 +51,13 @@ router.get('/:sigle', function(req, res, next) {
       return console.error('error fetching client from pool', err);
     }
     client.query(`
-      SELECT DISTINCT entity.sigle, entity.entloc, entity.localveg, entity.sampdate, entity.depthatloc, entity.sampdevice, entity.corediamcm, entity.notes, siteloc.sitename, siteloc.latdd, siteloc.londd, siteloc.elevation
-        FROM entity, siteloc
+      SELECT DISTINCT entity.sigle, entity.entloc, entity.localveg, entity.sampdate, entity.depthatloc, entity.sampdevice, entity.corediamcm, entity.notes, descr.description, sitedesc.sitedescript, sitedesc.physiography, sitedesc.surroundveg, siteloc.sitename, siteloc.latdd, siteloc.londd, siteloc.elevation
+        FROM entity, descr, sitedesc, siteloc
         WHERE
           entity.sigle    = $1 AND
-          entity.site_     = siteloc.site_
+          entity.site_     = siteloc.site_ AND
+          entity.site_     = sitedesc.site_ AND
+          entity.descriptor = descr.descriptor
       `, [sigle], function(err, result) {
 
       if(err) {

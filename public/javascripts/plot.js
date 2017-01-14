@@ -45,11 +45,14 @@ $(function() {
       //var marker = L.marker([res.latdd, res.londd]).addTo(map);
 
       map.setView(L.latLng(res.latdd, res.londd));
-      $("#site-title").text(res.sitename + " (" + res.sigle + ")");
-      $("#site-sampdate").text(res.sampdate);
+      $("#site-description").text(res.sitedescript);
       $("#site-elevation").text(res.elevation);
       $("#site-entloc").text(res.entloc);
       $("#site-notes").text(res.notes);
+      $("#site-physiography").text(res.physiography);
+      $("#site-sampdate").text(res.sampdate);
+      $("#site-title").text(res.sitename + " (" + res.sigle + ")");
+      $("#site-vegetation").text(res.surroundveg);
 
       $("#site-help").hide();
       $("#site-informations").show();
