@@ -1,8 +1,9 @@
 $(function() {
 
   Chart.defaults.global.defaultFontFamily = "'Roboto', sans-serif";
+  //Chart.defaults.global.layout.padding = 10; //FIXME: should be working
 
-  var plot = new Chart($("#plot"), {
+  var plot = new Chart($("#chart canvas"), {
     type: "line",
     data: {
       datasets: []
@@ -46,7 +47,8 @@ $(function() {
     $.getJSON("/api/sites/" + site, function(res) {
       //var marker = L.marker([res.latdd, res.londd]).addTo(map);
 
-      map.setView(L.latLng(res.latdd, res.londd));
+      map.setView([res.latdd, res.londd], 9);
+
       $("#site-description").text(res.sitedescript);
       $("#site-elevation").text(res.elevation);
       $("#site-entloc").text(res.entloc);
@@ -108,17 +110,22 @@ $(function() {
 
       plot.data.datasets = datasets;
       plot.update();
-      $("#plot-wrapper").show();
+      $("#chart").show();
     });
   };
 
   var map = L.map("map", {
     center: [47, 7],
-    zoom: 4
+    zoom: 4,
+    zoomControl: false
   });
 
+  map.addControl(L.control.zoom({
+    position: "topright"
+  }));
+
   var layer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: '<a href="http://osm.org/copyright/">OpenStreetMap</a> contributors'
+    attribution: '<a href="http://osm.org/copyright/">OpenStreetMap</a>'
   }).addTo(map);
 
   var numberOfTaxons = 10; // TODO
@@ -169,7 +176,7 @@ $(function() {
   for (var i = 1; i <= numberOfTaxons; i++) {
     $("#select-limit").append(new Option(i, i));
   }
-  limit = $("#select-limit").val() || 1;
+  limit = $("#select-limit").val() || 2;
   $("#select-limit").val(limit);
 
   $("#select-site").change(function() {

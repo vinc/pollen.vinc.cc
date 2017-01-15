@@ -1,9 +1,11 @@
-<h1>{{title}}</h1>
-<p>Chart the <a href="http://www.europeanpollendatabase.net/">European Pollen Database</a></p>
+<section id="top">
+  <h1>{{title}}</h1>
+  <!--<p>Chart the <a href="http://www.europeanpollendatabase.net/">European Pollen Database</a></p>-->
+</section>
 
-<div class="row">
-  <div class="col-50" id="map" style="height:400px"></div>
-  <div class="col-50">
+<section id="sites" class="row">
+  <div class="col-50" id="map"></div>
+  <div class="col-50" id="site">
     <div id="site-help">
       <h2>Site Selection</h2>
       <p>
@@ -36,9 +38,9 @@
       </dl>
     </div>
   </div>
-</div>
+</section>
 
-<div id="options" class="row">
+<section id="options" class="row">
   <div class="col-60">
     <label for="select-site">Site:</label>
     <select id="select-site" size=5></select>
@@ -54,9 +56,8 @@
     <label for="select-limit">Limit:</label>
     <select id="select-limit" size=5></select>
   </div>
-</div>
+</section>
 
-<div id="plot-wrapper" style="width:100%;height:400px;display:none">
-  <canvas id="plot"></canvas>
-</div>
-
+<section id="chart" style="display:none">
+  <canvas></canvas>
+</section>
