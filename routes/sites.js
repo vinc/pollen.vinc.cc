@@ -26,13 +26,11 @@ router.get('/', function(req, res, next) {
     }
     // TODO: Remove unused attributes
     client.query(`
-      SELECT DISTINCT entity.sigle, entity.entloc, entity.localveg, entity.sampdate, entity.depthatloc, entity.sampdevice, entity.corediamcm, entity.notes, descr.description, sitedesc.sitedescript, sitedesc.physiography, sitedesc.surroundveg, siteloc.sitename, siteloc.latdd, siteloc.londd, siteloc.elevation
-        FROM entity, descr, sitedesc, siteloc
+      SELECT DISTINCT siteloc.sitename, entity.sigle, siteloc.latdd, siteloc.londd
+        FROM entity, siteloc
         WHERE
-          entity.site_      = siteloc.site_ AND
-          entity.site_      = sitedesc.site_ AND
-          entity.descriptor = descr.descriptor
-        ORDER BY entity.sigle
+          entity.site_ = siteloc.site_
+        ORDER BY siteloc.sitename, entity.sigle
       `, function(err, result) {
 
       if(err) {
