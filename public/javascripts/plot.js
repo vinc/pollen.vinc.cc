@@ -1,5 +1,7 @@
 $(function() {
 
+  Chart.defaults.global.defaultFontFamily = "'Roboto', sans-serif";
+
   var plot = new Chart($("#plot"), {
     type: "line",
     data: {
@@ -50,7 +52,7 @@ $(function() {
       $("#site-entloc").text(res.entloc);
       $("#site-notes").text(res.notes);
       $("#site-physiography").text(res.physiography);
-      $("#site-sampdate").text(res.sampdate);
+      $("#site-sampdate").text(res.sampdate.replace("0000-00-00", ""));
       $("#site-title").text(res.sitename + " (" + res.sigle + ")");
       $("#site-vegetation").text(res.surroundveg);
 
@@ -144,7 +146,12 @@ $(function() {
 
       $("#select-site").append(new Option(title, value));
 
-      var marker = L.marker([row.latdd, row.londd], { icon: L.divIcon() });
+      var marker = L.marker([row.latdd, row.londd], {
+        icon: L.divIcon({
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        })
+      });
 
       marker.on("click", function(e) {
         console.debug("click on marker '" + value + "'");
