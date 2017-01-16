@@ -2,6 +2,8 @@ var express = require('express');
 var pg = require('pg');
 var url = require('url');
 
+var sql = require('../sql');
+
 // The Pool constructor does not support passing a Database URL as the
 // parameter like `var client = new pg.Client(process.env.DATABASE_URL);`.
 
@@ -17,11 +19,6 @@ var config = {
 var pool = new pg.Pool(config);
 
 var router = express.Router();
-
-var fs = require('fs');
-var sql = function(query) {
-  return fs.readFileSync('./queries/' + query + '.sql').toString();
-};
 
 router.get('/', function(req, res, next) {
   pool.connect(function(err, client, done) {
