@@ -20,6 +20,7 @@
     "leaflet": "^1.0.2",
     "leaflet.markercluster": "^1.0.0",
     "normalize-css": "^5.0.0",
-    "nvd3": "^1.8.5"
+    "nvd3": "^1.8.5",
+    "vue": "^2.1.8"
   }
 }

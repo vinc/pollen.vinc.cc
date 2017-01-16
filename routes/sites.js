@@ -7,7 +7,9 @@ router.get('/', function(req, res, next) {
   sql('sites', function(err, result) {
     res.format({
       html: function() {
-        res.render('sites', { title: 'Pollen Chart' });
+        res.render('sites', {
+          title: 'Pollen Chart'
+        });
       },
       json: function() {
         res.json(result.rows);
@@ -22,7 +24,10 @@ router.get('/:sigle', function(req, res, next) {
   sql('site', [sigle], function(err, result) {
     res.format({
       html: function() {
-        res.render('sites', { title: 'Pollen Chart' });
+        res.render('sites', {
+          title: 'Pollen Chart',
+          site: result.rows[0]
+        });
       },
       json: function() {
         res.json(result.rows[0]);
@@ -38,7 +43,9 @@ router.get('/:sigle/samples', function(req, res, next) {
   sql('site_samples', [sigle, [types]], function(err, result) {
     res.format({
       html: function() {
-        res.render('sites', { title: 'Pollen Chart' });
+        res.render('sites', {
+          title: 'Pollen Chart'
+        });
       },
       json: function() {
         res.json(result.rows);
