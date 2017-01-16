@@ -3,7 +3,7 @@ $(function() {
   var updateSite = function(site) {
     console.debug("updating map");
 
-    $.getJSON("/api/sites/" + site, function(res) {
+    $.getJSON("/sites/" + site, function(res) {
       //var marker = L.marker([res.latdd, res.londd]).addTo(map);
 
       map.setView([res.latdd, res.londd], 9);
@@ -27,7 +27,7 @@ $(function() {
 
     var querySite = site.toLowerCase();
     var queryTypes = types.join(",").toLowerCase();
-    var url = "/api/sites/" + querySite + "/samples?types=" + queryTypes;
+    var url = "/sites/" + querySite + "/samples?types=" + queryTypes;
 
     $.getJSON(url, function(res) {
       var taxons = { };
@@ -131,7 +131,7 @@ $(function() {
 
   $("#select-types").val(types);
 
-  $.getJSON("/api/sites", function(res) {
+  $.getJSON("/sites", function(res) {
     var markers = L.markerClusterGroup({
       showCoverageOnHover: false,
       chunkedLoading: true,
