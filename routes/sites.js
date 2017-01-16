@@ -25,7 +25,7 @@ router.get('/:sigle', function(req, res, next) {
         res.render('sites', { title: 'Pollen Chart' });
       },
       json: function() {
-        res.json(result.rows);
+        res.json(result.rows[0]);
       }
     });
   });
