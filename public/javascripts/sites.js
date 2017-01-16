@@ -40,10 +40,12 @@ var createChart = function(site, types, limit) {
   var queryTypes = types.join(",").toLowerCase();
   var url = "/sites/" + querySite + "/samples?types=" + queryTypes;
 
-  $.getJSON(url, function(res) {
+  Vue.http.get(url).then(response => {
+    return response.json();
+  }).then(json => {
     var taxons = { };
 
-    res = res.sort(function(a, b) {
+    json = json.sort(function(a, b) {
       return a.agebp > b.agebp;
     }).map(function(row) {
       return {
@@ -53,7 +55,7 @@ var createChart = function(site, types, limit) {
       };
     });
 
-    var counts = res.reduce(function(acc, row) {
+    var counts = json.reduce(function(acc, row) {
       acc[row.label] = (acc[row.label] || 0) + row.y;
       return acc;
     }, {});
@@ -62,7 +64,7 @@ var createChart = function(site, types, limit) {
     var datum = Object.keys(counts).map(function(label, i) {
       return {
         key: label,
-        values: res.filter(function(row) { return row.label == label; }),
+        values: json.filter(function(row) { return row.label == label; }),
         count: counts[label]
       };
     }).sort(function(a, b) {
@@ -118,9 +120,11 @@ var createChart = function(site, types, limit) {
 };
 
 Vue.component("site-info", function (resolve, reject) {
-  $.get("/partials/sites/info.hbs", function(res) {
+  Vue.http.get("/partials/sites/info.hbs").then(response => {
+    return response.text();
+  }).then(text => {
     resolve({
-      template: res,
+      template: text,
       props: ["site"]
     });
   });
@@ -140,21 +144,23 @@ var vue = new Vue({
   mounted: function() {
     this.map = createMap();
 
-    var vm = this;
-    $.getJSON("/sites", function(res) {
-      vm.sites = res;
-      vm.map.addLayer(createMarkers(res));
+    this.$http.get("/sites").then(response => {
+      return response.json();
+    }).then(json => {
+      this.sites = json;
+      this.map.addLayer(createMarkers(this.sites));
     });
   },
   watch: {
     selectSite: function(newSite) {
       this.selectSite = newSite;
 
-      var vm = this;
-      $.getJSON("/sites/" + newSite.toLowerCase(), function(res) {
-        vm.site = res;
-        vm.map.setView([res.latdd, res.londd], 9);
-        createChart(vm.selectSite, vm.selectTypes, vm.selectLimit);
+      this.$http.get("/sites/" + newSite.toLowerCase()).then(response => {
+        return response.json();
+      }).then(json => {
+        this.site = json;
+        this.map.setView([json.latdd, json.londd], 9);
+        createChart(this.selectSite, this.selectTypes, this.selectLimit);
       });
     },
     selectTypes: function(newTypes) {
