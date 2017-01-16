@@ -17,9 +17,9 @@
   ],
   "dependencies": {
     "jquery": "^3.1.1",
-    "chart.js": "^2.4.0",
     "leaflet": "^1.0.2",
     "leaflet.markercluster": "^1.0.0",
-    "normalize-css": "^5.0.0"
+    "normalize-css": "^5.0.0",
+    "nvd3": "^1.8.5"
   }
 }

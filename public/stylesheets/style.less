@@ -70,14 +70,56 @@ section#options {
   }
 }
 
-section#chart {
+section.chart {
   box-sizing: border-box;
   height: @chart-height;
 
-  canvas {
+  > * {
     width: 100%;
     height: 100%;
   }
+
+  .nvd3 {
+    text {
+      font-family: "Roboto", sans-serif;
+      fill: #555;
+    }
+    .nv-groups path.nv-line {
+      opacity: 0.50;
+      stroke-width: 3;
+    }
+    .nv-line .nv-scatter .nv-groups .nv-point {
+      fill-opacity: 0.75;
+      stroke-opacity: 0.75;
+      stroke-width: 2;
+
+      &.hover {
+        stroke-width: 4;
+      }
+    }
+    .nv-axis {
+      line {
+        stroke: white;
+        stroke-width: 2;
+      }
+      path {
+        opacity: 0
+      }
+    }
+    .nv-background {
+      fill: #eee;
+      fill-opacity: 1;
+    }
+    .nv-guideline {
+      stroke-width: 2;
+    }
+  }
+}
+
+.nvtooltip {
+  border: 1px solid rgba(0,0,0,0.2);
+  color: #333;
+  font-family: "Roboto", sans-serif;
 }
 
 h1, h2, h3 {

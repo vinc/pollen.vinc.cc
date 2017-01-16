@@ -1,46 +1,5 @@
 $(function() {
 
-  Chart.defaults.global.defaultFontFamily = "'Roboto', sans-serif";
-  //Chart.defaults.global.layout.padding = 10; //FIXME: should be working
-
-  var plot = new Chart($("#chart canvas"), {
-    type: "line",
-    data: {
-      datasets: []
-    },
-    options: {
-      animation: false,
-      maintainAspectRatio: false,
-      legend: {
-        label: {
-        }
-      },
-      scales: {
-        xAxes: [
-          {
-            type: "linear",
-            position: "bottom",
-            scaleLabel: {
-              display: true,
-              labelString: "Year cal BP"
-            }
-          }
-        ],
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
-            scaleLabel: {
-              display: true,
-              labelString: "Pollen count"
-            }
-          }
-        ]
-      }
-    }
-  });
-
   var updateSite = function(site) {
     console.debug("updating map");
 
@@ -90,27 +49,64 @@ $(function() {
 
       //numberOfTaxons = Object.keys(counts).length;
 
-      var datasets = Object.keys(counts).map(function(label, i) {
+      // Keep only the n taxons with the most pollen count
+      var datum = Object.keys(counts).map(function(label, i) {
         return {
-          label: label,
-          data: res.filter(function(row) { return row.label == label; }),
+          key: label,
+          values: res.filter(function(row) { return row.label == label; }),
           count: counts[label]
         };
       }).sort(function(a, b) {
         return a.count < b.count;
       }).slice(0, limit).map(function(row, i) {
-        return Object.assign(row, {
-          fill: false,
-          backgroundColor:      "hsla(" + i * 360 / limit + ", 50%, 60%, 0.25)",
-          borderColor:          "hsla(" + i * 360 / limit + ", 50%, 60%, 0.25)",
-          pointBorderColor:     "hsla(" + i * 360 / limit + ", 50%, 60%, 0.75)",
-          pointBackgroundColor: "hsla(" + i * 360 / limit + ", 50%, 60%, 0.75)"
-        });
+        row.color = "hsl(" + i * 360 / limit + ", 50%, 60%)";
+        return row;
       });
 
-      plot.data.datasets = datasets;
-      plot.update();
-      $("#chart").show();
+      nv.addGraph(function() {
+        var chart = nv.models.lineChart().options({
+          duration: 300,
+          useInteractiveGuideline: true
+        });
+
+        chart.interpolate("monotone");
+
+        // FIXME: only work for xAxis and not yAxis
+        //chart.padData(true);
+        //chart.padDataOuter(1);
+
+        chart.margin({ "top": 10, "right": 10 });
+
+        chart.xAxis
+          .axisLabel('Year cal BP')
+          .showMaxMin(false)
+          .tickPadding(5)
+          .tickFormat(d3.format(',r'));
+
+        chart.yAxis
+          .axisLabel('Pollen Count')
+          .showMaxMin(false)
+          .tickPadding(5)
+          .tickFormat(d3.format(',r'));
+
+        // Remove previous chart
+        d3.select("#nvd3-container svg").remove();
+        d3.select(".nvtooltip").remove();
+
+        // Add new chart
+        d3.select('#nvd3-container').append('svg')
+          .datum(datum)
+          .call(chart);
+
+        //Update the chart when window resizes.
+        nv.utils.windowResize(function() {
+          chart.update();
+        });
+
+        return chart;
+      });
+
+      $(".chart").show();
     });
   };
 
