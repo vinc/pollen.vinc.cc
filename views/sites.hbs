@@ -24,7 +24,7 @@
     <label for="select-site">Site:</label>
     <select id="select-site" v-model="selectSite" size=5>
       <option v-for="site in sites" v-bind:value="site.sigle">
-        \{{site.sitename}}
+        \{{site.sitename}} (\{{site.sigle}})
       </option>
     </select>
   </div>
