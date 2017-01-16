@@ -32,3 +32,9 @@ of the EPD and download a Postgres archive of the database:
 Where `$POSTGRES_DATABASE` is your database and `$POSTGRES_USER` your database
 user. You can avoid altering the dump by creating the two required users `epd`
 and `wwwadm` instead.
+
+
+License
+-------
+
+Copyright (c) 2017 Vincent Ollivier. Released under the MIT License.
