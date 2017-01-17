@@ -1,12 +1,119 @@
-<meta http-equiv="refresh" content="0; url=/sites">
-
-<!--
-<section>
-  <h1>{{title}}</h1>
-  <h2>Chart the <a href="http://www.europeanpollendatabase.net/">European Pollen Database</a></h2>
+<section id="landing-header">
+  <h1>Pollen Chart</h1>
+  <h2>Explore the history of our environment</h2>
 </section>
 
-<section>
-  <p>Load <a href="/sites">app</a></p>
+<section class="landing">
+  <div class="container">
+    <div>
+      <p>
+        Counting hundred of thousand grains of pollens from samples taken
+        at the bottom of a lake is a very long and meticulous task, but it
+        can teach us a lot about the history of the location and its
+        surrounding: from the impact of agriculture on the land to the climatic
+        changes since the last glaciation.
+      </p>
+
+      <p>
+        Since 2007, thousand of scientists have been sharing data from hundred
+        of thousands of samples in the
+        <a href="http://www.europeanpollendatabase.net/">European Pollen Database</a>,
+        free of charge, for the scientific community.
+      </p>
+
+      <p>
+        This website is dedicated to help exploring this invaluable trove of
+        our past, for a better understanding of our environment and our future.
+      </p>
+
+      <p class="center cta"><a href="/sites">Explore the database</a></p>
+    </div>
+  </div>
 </section>
--->
+
+<section class="landing grey">
+  <div class="container">
+    <div class="row">
+      <div class="col-50 middle">
+        <h2>Thousands of sites in Europe</h2>
+        <p>
+          As of January 2017, there are 1876 sites in the database.
+        </p>
+        <p>
+          Most sites cover a good part of the Holocene, up to the last
+          glaciation, and some even go hundreds of years in the past.
+        </p>
+      </div>
+      <div class="col-50">
+        <div class="media right">
+          <img src="/images/screenshot_map_zoomed_out.png" alt="screenshot of map zoomed out" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row reverse">
+      <div class="col-50 middle">
+        <h2>Mapped with great accuracy</h2>
+        <p>
+          Every site is published along with its precise geographical
+          location and a description of the surrounding.
+        </p>
+        <p>
+          Pollen Chart uses the leading JavaScript library
+          <a href="https://leafletjs.com/">Leaflet</a>
+          to display the sites on an interactive map provided by
+          <a href="https://openstreetmap.org/">OpenStreetMap</a>,
+          allowing easy access to the data.
+        </p>
+      </div>
+      <div class="col-50">
+        <div class="media left">
+          <img src="/images/screenshot_map_zoomed_in.png" alt="screenshot of map zoomed in" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="landing">
+  <div class="container">
+    <div>
+      <h2 class="center">Interactive pollen count charts</h2>
+      <p>
+        Once a site is selected, a full screen chart of pollen count is
+        generated with <a href="https://d3js.org/">D3.js</a>.
+      </p>
+      <p>
+        The chart is highly interactive, with many options including
+        a tooltip allowing a numeric comparison of all pollen species
+        for any given year, and clickable legend items to show or hide
+        any lines.
+      </p>
+      <div class="media center">
+        <img src="/images/screenshot_chart.png" alt="screenshot of chart" />
+      </div>
+
+      <p>
+        Pollen chart uses
+        <a href="http://expressjs.com/">Express</a>, the leading web framework
+        for <a href="https://nodejs.org/">Node.js</a>, to bring the data from
+        the <a href="https://www.postgresql.org/">PostgreSQL</a> server as fast
+        as possible to the user, through a lightweight interface built with
+        <a href="https://vuejs.org/">Vue.js</a>.
+      </p>
+
+      <p class="center cta"><a href="/sites">Explore the database</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="landing grey" id="landing-footer">
+  <div class="container">
+    <p class="center">
+      Made with &hearts; in 2017 by <a href="https://vinc.cc">Vinc</a>
+    </p>
+    <p class="center">
+      Code released under the <a href="https://github.com/vinc/pollen.vinc.cc/LICENSE">MIT License</a>
+    </p>
+  </div>
+</section>

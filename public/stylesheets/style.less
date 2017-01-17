@@ -1,5 +1,5 @@
 @min-desktop-width: 768px;
-@max-mobile-width: @min-desktop-width - 1px;
+@max-mobile-width: 767px;
 @padding-size: 10px;
 @map-height: 50vh;
 @chart-height: 100vh;
@@ -9,6 +9,15 @@ html {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   line-height: 140%;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+
+  > #app {
+    height: 100%;
+  }
 }
 
 section {
@@ -185,6 +194,21 @@ dl {
     > * + * {
       margin-left: @padding-size;
     }
+
+    &.reverse {
+      flex-direction: row-reverse;
+
+      > * + * {
+        margin-left: 0;
+        margin-right: @padding-size;
+      }
+    }
+
+    > .middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 }
 
@@ -194,4 +218,114 @@ dl {
       margin-top: @padding-size;
     }
   }
+}
+
+section#landing-header {
+  min-height: 50%;
+  display: flex;
+  justify-content: center;
+  background-color: #F90;
+  flex-direction: column;
+  padding: 0 1em;
+  margin: 0 auto;
+  align-items: center;
+
+  h1, h2, a {
+    color: white;
+  }
+
+  h1 {
+    font-size: 8vw;
+    line-height: initial;
+  }
+  h2 {
+    font-size: 2.5vw;
+  }
+
+  @media (max-width: @max-mobile-width) {
+    h1 {
+      font-size: 16vw;
+    }
+    h2 {
+      font-size: 5vw;
+    }
+  }
+}
+
+section#landing-footer {
+  p {
+    color: #666;
+    margin: 1em 0;
+  }
+}
+
+section.landing {
+  .container {
+    max-width: 40em;
+    margin: 0 auto;
+
+    a {
+      color: #F90;
+    }
+
+    > div {
+      padding: 2em 0;
+    }
+
+    p {
+      margin: 1em 0 0;
+
+      &.cta {
+        margin: 2em 0;
+
+        a {
+          background: #F90;
+          color: white;
+          padding: 10px;
+          border-bottom: solid 3px #E80;
+          display: block;
+          border-radius: 2px;
+          width: 10em;
+          margin: 0 auto;
+          transition: background-color 200ms linear;
+
+          &:hover {
+            background: #FA3;
+          }
+          &:active {
+            border-bottom: none;
+            border-top: solid 3px #E80;
+            background: #F90;
+          }
+        }
+      }
+    }
+  }
+  img {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  @media (max-width: @max-mobile-width) {
+    .media.right,
+    .media.left {
+      text-align: center;
+    }
+  }
+}
+
+section.grey {
+  background-color: #eee;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
 }
