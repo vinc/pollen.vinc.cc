@@ -36,6 +36,10 @@ var createMarkers = function(sites) {
 };
 
 var createChart = function(site, types, limit) {
+  // Remove previous chart
+  d3.select("#nvd3-container svg").remove();
+  d3.select(".nvtooltip").remove();
+
   var querySite = site.toLowerCase();
   var queryTypes = types.join(",").toLowerCase();
   var url = "/sites/" + querySite + "/samples?types=" + queryTypes;
@@ -90,10 +94,6 @@ var createChart = function(site, types, limit) {
         .showMaxMin(false)
         .tickPadding(5)
         .tickFormat(d3.format(',r'));
-
-      // Remove previous chart
-      d3.select("#nvd3-container svg").remove();
-      d3.select(".nvtooltip").remove();
 
       // Add new chart
       d3.select('#nvd3-container').append('svg')
