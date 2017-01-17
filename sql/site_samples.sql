@@ -8,4 +8,4 @@ SELECT DISTINCT p_vars.varname, p_agedpt.agebp, p_counts.count, 100 * p_counts.c
     p_vars.var_      = p_group.var_ AND
     p_vars.var_      = p_counts.var_ AND
     p_counts.sample_ = p_agedpt.sample_
-  ORDER BY p_agedpt.agebp
+  ORDER BY p_agedpt.agebp, p_vars.varname

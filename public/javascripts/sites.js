@@ -43,34 +43,25 @@ var createChart = function(site, types, limit) {
   Vue.http.get(url).then(response => {
     return response.json();
   }).then(json => {
-    var taxons = { };
-
-    json = json.sort(function(a, b) {
-      return a.agebp > b.agebp;
-    }).map(function(row) {
-      return {
-        label: row.varname,
-        x: row.agebp,
-        y: row.count
-      };
-    });
-
     var counts = json.reduce(function(acc, row) {
-      acc[row.label] = (acc[row.label] || 0) + row.y;
+      acc[row.varname] = (acc[row.varname] || 0) + row.count;
       return acc;
     }, {});
 
     // Keep only the n taxons with the most pollen count
-    var datum = Object.keys(counts).map(function(label, i) {
+    var datum = Object.keys(counts).map(function(varname, i) {
       return {
-        key: label,
-        values: json.filter(function(row) { return row.label == label; }),
-        count: counts[label]
+        key: varname,
+        values: json.filter(function(row) { return row.varname == varname; }),
+        count: counts[varname]
       };
     }).sort(function(a, b) {
-      return a.count < b.count;
+      return b.count - a.count;
     }).slice(0, limit).map(function(row, i) {
       row.color = "hsl(" + i * 360 / limit + ", 50%, 60%)";
+      row.values = row.values.map(function(value) {
+        return { x: value.agebp, y: value.count };
+      });
       return row;
     });
 
