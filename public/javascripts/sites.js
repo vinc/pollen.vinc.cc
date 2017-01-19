@@ -10,7 +10,7 @@ var createMap = function() {
   }));
 };
 
-var createMarkers = function(sites) {
+var createMarkers = function(sites, { onClick: onClickCallback }) {
   var group = L.markerClusterGroup({
     showCoverageOnHover: false,
     //chunkedLoading: true, // FIXME bug if map.setView() is called at the same time
@@ -25,9 +25,11 @@ var createMarkers = function(sites) {
       })
     });
 
-    marker.on("click", function(e) {
-      vue.selectSite = site.sigle;
-    });
+    if (onClickCallback) {
+      marker.on("click", function(e) {
+        onClickCallback(site);
+      });
+    }
 
     return marker;
   });
@@ -173,7 +175,15 @@ var vue = new Vue({
       return response.json();
     }).then(json => {
       this.sites = json;
-      this.map.addLayer(createMarkers(json));
+
+      var vm = this;
+      var markers = createMarkers(json, {
+        onClick: function(site) {
+          vm.selectSite = site.sigle;
+        }
+      });
+
+      this.map.addLayer(markers);
       if (this.$route.name == "site") {
         this.selectSite = this.$route.params.sigle.toUpperCase();
       } // TODO: Create map in else case and below in place of setView
