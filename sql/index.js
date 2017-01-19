@@ -2,6 +2,10 @@ var fs = require('fs');
 var pg = require('pg');
 var url = require('url');
 
+if (typeof process.env.DATABASE_URL === 'undefined') {
+  throw new ReferenceError('DATABASE_URL environment variable must be set');
+}
+
 // The Pool constructor does not support passing a Database URL as the
 // parameter like `var client = new pg.Client(process.env.DATABASE_URL);`.
 
