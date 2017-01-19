@@ -29,10 +29,18 @@
     </select>
   </div>
   <div class="col-20">
-    <label for="select-types">Type:</label>
+    <label for="select-types">Group:</label>
     <select id="select-types" v-model="selectTypes" size=5 multiple>
-      <option>TRSH</option>
-      <option>HERB</option>
+      <option value="HERB">Herbs</option>
+      <option value="TRSH">Trees and shrubs</option>
+      <option value="VACR">Vascular cryptogams</option>
+      <!--
+      <option value="INUN">Indeterminables</option>
+      <option value="AQUA">Aquatics</option>
+      <option value="FUNG">Fungus</option>
+      <option value="CHLO">Chlorophyta</option>
+      <option value="MACR">Macrofossils</option>
+      -->
     </select>
   </div>
   <div class="col-20">
