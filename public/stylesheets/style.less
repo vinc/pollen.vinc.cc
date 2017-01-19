@@ -166,6 +166,21 @@ dl {
 #map {
   font-family: "Roboto", sans-serif;
 
+  .leaflet-bar {
+    @border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: @border-radius;
+
+    a:first-child {
+      border-top-left-radius: @border-radius;
+      border-top-right-radius: @border-radius;
+    }
+    a:last-child {
+      border-bottom-left-radius: @border-radius;
+      border-bottom-right-radius: @border-radius;
+    }
+  }
+
   .leaflet-div-icon {
     border-radius: 50%;
     background-color: hsla(5, 100%, 70%, 0.8);
