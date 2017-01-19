@@ -162,6 +162,7 @@ var vue = new Vue({
   el: "#app",
   router: router,
   data: {
+    clickedMarker: false,
     selectSite: "",
     selectTypes: ["TRSH"],
     selectLimit: 3,
@@ -180,6 +181,7 @@ var vue = new Vue({
       var markers = createMarkers(json, {
         onClick: function(site) {
           vm.selectSite = site.sigle;
+          vm.clickedMarker = true;
         }
       });
 
@@ -198,8 +200,11 @@ var vue = new Vue({
         router.push(path);
         this.site = json;
 
-        // FIXME: This bug when chunkedLoading of markers is true
-        this.map.setView([json.latdd, json.londd], 9);
+        if (!this.clickedMarker) {
+          // FIXME: setView() will cause a bug when chunkedLoading of markers is true
+          this.map.setView([json.latdd, json.londd], 9);
+        }
+        this.clickedMarker = false;
 
         this.updateChart();
       });
