@@ -94,7 +94,7 @@ var createChart = function(datum) {
       useInteractiveGuideline: true
     });
 
-    chart.interpolate("monotone");
+    chart.interpolate("linear");
 
     // FIXME: only work for xAxis and not yAxis
     //chart.padData(true);
