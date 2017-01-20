@@ -23,7 +23,7 @@
   <div class="col-60">
     <label for="select-site">Site:</label>
     <select id="select-site" v-model="selectSite" size=5>
-      <option v-for="selectSite in sites" v-bind:value="selectSite.sigle">
+      <option v-for="selectSite in sites" v-bind:value="selectSite.sigle" v-cloak>
         \{{selectSite.sitename}} (\{{selectSite.sigle}})
       </option>
     </select>
