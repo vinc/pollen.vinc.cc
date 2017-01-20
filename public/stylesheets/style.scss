@@ -1,8 +1,8 @@
-@min-desktop-width: 768px;
-@max-mobile-width: 767px;
-@padding-size: 10px;
-@map-height: 50vh;
-@chart-height: 100vh;
+$min-desktop-width: 768px;
+$max-mobile-width: 767px;
+$padding-size: 10px;
+$map-height: 50vh;
+$chart-height: 100vh;
 
 html {
   color: #333;
@@ -21,7 +21,7 @@ body {
 }
 
 section {
-  padding: @padding-size;
+  padding: $padding-size;
 }
 
 section#top {
@@ -38,22 +38,22 @@ section#sites {
   padding: 0;
 
   #map {
-    height: @map-height;
+    height: $map-height;
   }
 
   #info {
-    padding: @padding-size;
+    padding: $padding-size;
   }
 
-  @media (max-width: @max-mobile-width) {
+  @media (max-width: $max-mobile-width) {
     #info {
       border-top: solid 1px #ddd;
       margin-top: 0;
     }
   }
 
-  @media (min-width: @min-desktop-width) {
-    height: @map-height;
+  @media (min-width: $min-desktop-width) {
+    height: $map-height;
 
     #info {
       overflow: auto;
@@ -69,7 +69,7 @@ section#options {
   border-bottom: solid 1px #ddd;
 
   label + select {
-    margin-top: @padding-size / 2;
+    margin-top: $padding-size / 2;
   }
 
   label {
@@ -86,7 +86,7 @@ section#options {
 
 section.chart {
   box-sizing: border-box;
-  height: @chart-height;
+  height: $chart-height;
 
   > * {
     width: 100%;
@@ -141,6 +141,10 @@ h1, h2, h3 {
   color: #555;
 }
 
+a {
+  color: #F90;
+}
+
 dl {
   display: flex;
   flex-flow: row;
@@ -167,17 +171,17 @@ dl {
   font-family: "Roboto", sans-serif;
 
   .leaflet-bar {
-    @border-radius: 2px;
+    $border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    border-radius: @border-radius;
+    border-radius: $border-radius;
 
     a:first-child {
-      border-top-left-radius: @border-radius;
-      border-top-right-radius: @border-radius;
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
     }
     a:last-child {
-      border-bottom-left-radius: @border-radius;
-      border-bottom-right-radius: @border-radius;
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
     }
   }
 
@@ -197,7 +201,7 @@ dl {
   }
 }
 
-@media (min-width: @min-desktop-width) {
+@media (min-width: $min-desktop-width) {
   .row {
     display: flex;
 
@@ -212,7 +216,7 @@ dl {
     }
 
     > * + * {
-      margin-left: @padding-size;
+      margin-left: $padding-size;
     }
 
     &.reverse {
@@ -220,7 +224,7 @@ dl {
 
       > * + * {
         margin-left: 0;
-        margin-right: @padding-size;
+        margin-right: $padding-size;
       }
     }
 
@@ -232,10 +236,10 @@ dl {
   }
 }
 
-@media (max-width: @max-mobile-width) {
+@media (max-width: $max-mobile-width) {
   .row {
     > * + * {
-      margin-top: @padding-size;
+      margin-top: $padding-size;
     }
   }
 }
@@ -264,7 +268,7 @@ section#landing-header {
     font-size: 2.5vw;
   }
 
-  @media (max-width: @max-mobile-width) {
+  @media (max-width: $max-mobile-width) {
     h1 {
       font-size: 16vw;
     }
@@ -285,10 +289,6 @@ section.landing {
   .container {
     max-width: 40em;
     margin: 0 auto;
-
-    a {
-      color: #F90;
-    }
 
     > div {
       padding: 2em 0;
@@ -328,7 +328,7 @@ section.landing {
     max-width: 100%;
   }
 
-  @media (max-width: @max-mobile-width) {
+  @media (max-width: $max-mobile-width) {
     .media.right,
     .media.left {
       text-align: center;

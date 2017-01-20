@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('hbs');
+var sass = require('node-sass-middleware');
 
 var index = require('./routes/index');
 var sites = require('./routes/sites');
@@ -21,12 +22,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('less-middleware')(path.join(__dirname, 'public')));
+app.use(sass({
+  src: path.join(__dirname, 'public'),
+  debug: app.get('env') === 'development'
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/components', express.static(path.join(__dirname, 'bower_components')));
 
-hbs.registerPartials(__dirname + '/views/partials');
-app.use('/partials', express.static(path.join(__dirname, '/views/partials')));
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
+app.use('/partials', express.static(path.join(__dirname, 'views/partials')));
 
 app.use('/', index);
 app.use('/sites', sites);
