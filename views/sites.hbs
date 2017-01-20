@@ -23,13 +23,13 @@
   <div class="col-60">
     <label for="select-site">Site:</label>
     <select id="select-site" v-model="selectSite" size=5>
-      <option v-for="site in sites" v-bind:value="site.sigle">
-        \{{site.sitename}} (\{{site.sigle}})
+      <option v-for="selectSite in sites" v-bind:value="selectSite.sigle">
+        \{{selectSite.sitename}} (\{{selectSite.sigle}})
       </option>
     </select>
   </div>
   <div class="col-20">
-    <label for="select-types">Group:</label>
+    <label for="select-types">Groups:</label>
     <select id="select-types" v-model="selectTypes" size=5 multiple>
       <option value="HERB">Herbs</option>
       <option value="TRSH">Trees and shrubs</option>

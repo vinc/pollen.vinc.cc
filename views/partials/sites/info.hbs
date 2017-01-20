@@ -1,21 +1,21 @@
-<div>
-<h2>{{ site.sitename }} ({{ site.sigle }})</h2>
-<dl>
-  <dt v-if="site.sampdate">Date:</dt>
-  <dd v-if="site.sampdate">{{ site.sampdate }}</dd>
-  <dt v-if="site.elevation">Elevation:</dt>
-  <dd v-if="site.elevation">{{ site.elevation }} meters</dd>
-  <dt v-if="site.description">Description:</dt>
-  <dd v-if="site.description">{{ site.description }}</dd>
-  <dt v-if="site.physiography">Physiography:</dt>
-  <dd v-if="site.physiography">{{ site.physiography }}</dd>
-  <dt v-if="site.vegetation">Vegetation:</dt>
-  <dd v-if="site.vegetation">{{ site.vegetation }}</dd>
-  <dt v-if="site.entloc">Location:</dt>
-  <dd v-if="site.entloc">{{ site.entloc }}</dd>
-  <dt v-if="site.notes">Notes:</dt>
-  <dd v-if="site.notes">{{ site.notes }}</dd>
-  <dt>Source:</dt>
-  <dd><a href="http://www.europeanpollendatabase.net/">European Pollen Database</a></dd>
-</dl>
+<div v-if="site" v-cloak>
+  <h2>{{ site.sitename }} ({{ site.sigle }})</h2>
+  <dl>
+    <dt v-if="site.sampdate">Date:</dt>
+    <dd v-if="site.sampdate">{{ site.sampdate }}</dd>
+    <dt v-if="site.elevation">Elevation:</dt>
+    <dd v-if="site.elevation">{{ site.elevation }} meters</dd>
+    <dt v-if="site.description">Description:</dt>
+    <dd v-if="site.description">{{ site.description }}</dd>
+    <dt v-if="site.physiography">Physiography:</dt>
+    <dd v-if="site.physiography">{{ site.physiography }}</dd>
+    <dt v-if="site.vegetation">Vegetation:</dt>
+    <dd v-if="site.vegetation">{{ site.vegetation }}</dd>
+    <dt v-if="site.entloc">Location:</dt>
+    <dd v-if="site.entloc">{{ site.entloc }}</dd>
+    <dt v-if="site.notes">Notes:</dt>
+    <dd v-if="site.notes">{{ site.notes }}</dd>
+    <dt>Source:</dt>
+    <dd><a href="http://www.europeanpollendatabase.net/">European Pollen Database</a></dd>
+  </dl>
 </div>

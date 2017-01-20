@@ -20,6 +20,10 @@ body {
   }
 }
 
+[v-cloak] {
+  display: none;
+}
+
 section {
   padding: $padding-size;
 }

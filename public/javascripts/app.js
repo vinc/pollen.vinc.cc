@@ -167,7 +167,7 @@ var vue = new Vue({
     selectTypes: ["TRSH"],
     selectLimit: 3,
     sites: [],
-    site: undefined
+    site: null
   },
   mounted: function() { // Leaflet requires `mounted` instead of `created`
     this.map = createMap(); // TODO: Create map later to avoid `setView()`
