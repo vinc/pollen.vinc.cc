@@ -1,4 +1,5 @@
 var express = require('express');
+var version = require('../package.json').version;
 var sql = require('../sql');
 
 var router = express.Router();
@@ -8,6 +9,7 @@ router.get('/', function(req, res, next) {
     res.format({
       html: function() {
         res.render('sites', {
+          version: version,
           title: 'Pollen Chart'
         });
       },
@@ -25,6 +27,7 @@ router.get('/:sigle', function(req, res, next) {
     res.format({
       html: function() {
         res.render('sites', {
+          version: version,
           title: 'Pollen Chart',
           site: result.rows[0]
         });
@@ -44,6 +47,7 @@ router.get('/:sigle/samples', function(req, res, next) {
     res.format({
       html: function() {
         res.render('sites', {
+          version: version,
           title: 'Pollen Chart'
         });
       },
