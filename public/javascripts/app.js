@@ -130,8 +130,8 @@ var createChart = function(datum) {
 };
 
 var destroyChart = function() {
-  d3.select("#nvd3-container svg").remove();
-  d3.select(".nvtooltip").remove();
+  d3.selectAll("#nvd3-container svg").remove();
+  d3.selectAll(".nvtooltip").remove();
 };
 
 Vue.component("site-info", function (resolve, reject) {
