@@ -154,6 +154,10 @@ section.chart {
 h1, h2, h3 {
   margin: 0;
   color: #555;
+
+  &:first-letter {
+    text-transform: capitalize;
+  }
 }
 
 a {
