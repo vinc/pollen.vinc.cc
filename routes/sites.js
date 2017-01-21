@@ -24,17 +24,23 @@ router.get('/:sigle', function(req, res, next) {
   var sigle = req.params.sigle.toUpperCase();
 
   sql('site', [sigle], function(err, result) {
-    res.format({
-      html: function() {
-        res.render('sites', {
-          version: version,
-          title: 'Pollen Chart',
-          site: result.rows[0]
-        });
-      },
-      json: function() {
-        res.json(result.rows[0]);
-      }
+    var site = result.rows[0];
+
+    sql('dates', [sigle], function(err, result) {
+      site = Object.assign(site, result.rows[0]);
+
+      res.format({
+        html: function() {
+          res.render('sites', {
+            version: version,
+            title: 'Pollen Chart',
+            site: site
+          });
+        },
+        json: function() {
+          res.json(site);
+        }
+      });
     });
   });
 });

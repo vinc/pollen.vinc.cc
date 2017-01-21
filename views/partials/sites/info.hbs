@@ -3,6 +3,8 @@
   <dl>
     <dt>Coordinates:</dt>
     <dd>{{ site.latdd }}, {{ site.londd }}</dd>
+    <dt v-if="site.agebp_max">Period:</dt>
+    <dd v-if="site.agebp_max">{{ site.agebp_max }} .. {{ site.agebp_min }} cal. BP</dd>
     <dt v-if="site.sampdate">Date:</dt>
     <dd v-if="site.sampdate">{{ site.sampdate }}</dd>
     <dt v-if="site.elevation">Elevation:</dt>
