@@ -1,6 +1,8 @@
 <div v-if="site" v-cloak>
   <h2>{{ site.sitename }} ({{ site.sigle }})</h2>
   <dl>
+    <dt>Coordinates:</dt>
+    <dd>{{ site.latdd }}, {{ site.londd }}</dd>
     <dt v-if="site.sampdate">Date:</dt>
     <dd v-if="site.sampdate">{{ site.sampdate }}</dd>
     <dt v-if="site.elevation">Elevation:</dt>
