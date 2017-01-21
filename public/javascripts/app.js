@@ -19,6 +19,7 @@ var createMarkers = function(sites, { onClick: onClickCallback }) {
   // Add markers on map
   var markers = sites.map(function(site) {
     var marker = L.marker([site.latdd, site.londd], {
+      title: site.sigle,
       icon: L.divIcon({
         iconSize: [16, 16],
         iconAnchor: [8, 8]
