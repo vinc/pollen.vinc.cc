@@ -163,12 +163,18 @@ var vue = new Vue({
   el: "#app",
   router: router,
   data: {
+    loading: false,
     clickedMarker: false,
     selectSite: "",
     selectTypes: ["TRSH"],
     selectLimit: 3,
     sites: [],
     site: null
+  },
+  created: function() {
+    if (this.$route.name == "site") {
+      this.loading = true;
+    }
   },
   mounted: function() { // Leaflet requires `mounted` instead of `created`
     this.map = createMap(); // TODO: Create map later to avoid `setView()`
@@ -195,9 +201,11 @@ var vue = new Vue({
   watch: {
     selectSite: function(newSite) {
       var path = "/sites/" + newSite.toLowerCase();
+      this.loading = true;
       this.$http.get(path).then(response => {
         return response.json();
       }).then(json => {
+        this.loading = false;
         router.push(path);
         this.site = json;
 

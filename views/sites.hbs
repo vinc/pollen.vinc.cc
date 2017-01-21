@@ -6,7 +6,10 @@
 <section id="sites" class="row">
   <div class="col-50" id="map"></div>
   <div class="col-50" id="info">
-    <div v-if="site">
+    <div class="loading middle" v-if="loading" v-cloak>
+      <p class="center">loading</p>
+    </div>
+    <div v-else-if="site">
       <site-info v-bind:site="site"></site-info>
     </div>
     <div v-else>

@@ -56,7 +56,6 @@ section#sites {
   }
 
   #info {
-    min-height: $map-height;
     padding: $padding-size;
   }
 
@@ -245,12 +244,41 @@ dl {
         margin-right: $padding-size;
       }
     }
+  }
+}
 
-    > .middle {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+@media (min-width: $min-desktop-width) {
+  .middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.loading {
+  height: 100%;
+
+  > * {
+    animation-name: loading;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+
+    $circle-size: 4em;
+    width: $circle-size;
+    height: $circle-size;
+    line-height: $circle-size;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    color: white;
+    font-weight: bold;
+    background-color: rgba(#F00, 0.25);
+  }
+}
+
+@keyframes loading {
+  50% {
+    background-color: rgba(#F00, 0.50);
   }
 }
 
