@@ -83,7 +83,7 @@ section#options {
   border-bottom: solid 1px #ddd;
 
   label + select {
-    margin-top: $padding-size / 2;
+    margin-top: 1px;
   }
 
   label {
@@ -92,6 +92,7 @@ section#options {
   }
 
   select {
+    border: solid 1px #ddd;
     width: 100%;
     font-family: "Roboto", sans-serif;
     color: #444;
@@ -107,39 +108,47 @@ section.chart {
     height: 100%;
   }
 
-  .nvd3 {
+  svg {
     text {
       font-family: "Roboto", sans-serif;
       fill: #555;
     }
-    .nv-groups path.nv-line {
-      opacity: 0.50;
-      stroke-width: 3;
-    }
-    .nv-line .nv-scatter .nv-groups .nv-point {
-      fill-opacity: 0.75;
-      stroke-opacity: 0.75;
-      stroke-width: 2;
-
-      &.hover {
-        stroke-width: 4;
+    .nvd3 {
+      // Lines
+      .nv-groups path.nv-line {
+        //opacity: 0.50;
+        opacity: 0.75;
+        stroke-width: 3;
       }
-    }
-    .nv-axis {
-      line {
-        stroke: white;
+
+      // Points
+      .nv-line .nv-scatter .nv-groups .nv-point {
+        //fill-opacity: 0.75;
+        //stroke-opacity: 0.75;
+        //stroke-width: 2;
+
+        &.hover {
+          //stroke-width: 4;
+          stroke-width: 3;
+        }
+      }
+
+      .nv-axis {
+        line {
+          stroke: white;
+          stroke-width: 2;
+        }
+        path {
+          opacity: 0
+        }
+      }
+      .nv-background {
+        fill: #eee;
+        fill-opacity: 1;
+      }
+      .nv-guideline {
         stroke-width: 2;
       }
-      path {
-        opacity: 0
-      }
-    }
-    .nv-background {
-      fill: #eee;
-      fill-opacity: 1;
-    }
-    .nv-guideline {
-      stroke-width: 2;
     }
   }
 }
@@ -191,6 +200,7 @@ dl {
   .leaflet-bar {
     $border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    border: none;
     border-radius: $border-radius;
 
     a:first-child {
