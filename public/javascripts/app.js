@@ -1,3 +1,29 @@
+L.Control.RefreshMarkers = L.Control.extend({
+  options: {
+    position: "topleft",
+  },
+  onAdd: function (map) {
+    var control = L.DomUtil.create("div", "leaflet-control-refresh leaflet-bar");
+    var button = L.DomUtil.create("a", "leaflet-control-refresh-button", control);
+
+    button.innerHTML = "load markers";
+    button.href = "#";
+
+    L.DomEvent
+      .addListener(control, "click", L.DomEvent.stopPropagation)
+      .addListener(control, "click", L.DomEvent.preventDefault)
+      .addListener(control, "click", function() {
+        map.fire("refresh");
+      });
+
+    return control;
+  }
+});
+
+L.control.refreshMarkers = function (options) {
+  return new L.Control.RefreshMarkers(options);
+};
+
 var createMap = function() {
   return L.map("map", {
     center: [47, 7],
@@ -186,8 +212,20 @@ var vue = new Vue({
       } // TODO: Create map in else case and below in place of setView
     });
 
+    // Display refresh control when map is updated
     this.map.on("moveend", function() {
+      if (!vm.refreshControl) {
+        vm.refreshControl = L.control.refreshMarkers();
+        vm.map.addControl(vm.refreshControl);
+      }
+    });
+
+    // Update markers when refresh control is clicked
+    // NOTE: just listen on `moveend` to do it automatically
+    this.map.on("refresh", function() {
       vm.updateMarkers();
+      vm.map.removeControl(vm.refreshControl);
+      delete vm.refreshControl;
     });
   },
   watch: {
