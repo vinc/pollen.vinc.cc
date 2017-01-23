@@ -179,23 +179,15 @@ var vue = new Vue({
   mounted: function() { // Leaflet requires `mounted` instead of `created`
     this.map = createMap(); // TODO: Create map later to avoid `setView()`
 
-    this.$http.get("/sites").then(response => {
-      return response.json();
-    }).then(json => {
-      this.sites = json;
-
-      var vm = this;
-      var markers = createMarkers(json, {
-        onClick: function(site) {
-          vm.selectSite = site.sigle;
-          vm.clickedMarker = true;
-        }
-      });
-
-      this.map.addLayer(markers);
-      if (this.$route.name == "site") {
-        this.selectSite = this.$route.params.sigle.toUpperCase();
+    var vm = this;
+    this.updateMarkers(function() {
+      if (vm.$route.name == "site") {
+        vm.selectSite = vm.$route.params.sigle.toUpperCase();
       } // TODO: Create map in else case and below in place of setView
+    });
+
+    this.map.on("moveend", function() {
+      vm.updateMarkers();
     });
   },
   watch: {
@@ -230,7 +222,37 @@ var vue = new Vue({
     }
   },
   methods: {
-    updateChart() {
+    updateMarkers: function(callback) {
+      console.debug("Updating markers");
+      var params = {
+        bbox: this.map.getBounds().toBBoxString()
+      };
+
+      this.$http.get("/sites", { params: params }).then(response => {
+        return response.json();
+      }).then(json => {
+        this.sites = json;
+
+        if (this.markers) {
+          this.markers.remove();
+        }
+
+        var vm = this;
+        this.markers = createMarkers(json, {
+          onClick: function(site) {
+            vm.selectSite = site.sigle;
+            vm.clickedMarker = true;
+          }
+        });
+
+        this.map.addLayer(this.markers);
+
+        if (callback) {
+          callback();
+        }
+      });
+    },
+    updateChart: function() {
       destroyChart();
       var params = {
         sigle: this.selectSite,

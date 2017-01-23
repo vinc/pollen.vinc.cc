@@ -5,7 +5,13 @@ var sql = require('../sql');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  sql('sites', function(err, result) {
+  var bbox = (decodeURI(req.query.bbox || '-180,0,180,90')).split(',').map(Number);
+
+  if (bbox.length != 4 || bbox.some(isNaN)) {
+    return res.sendStatus(400);
+  }
+
+  sql('sites', bbox, function(err, result) {
     res.format({
       html: function() {
         res.render('sites', {
