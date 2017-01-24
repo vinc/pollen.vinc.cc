@@ -6,7 +6,7 @@ L.Control.RefreshMarkers = L.Control.extend({
     var control = L.DomUtil.create("div", "leaflet-control-refresh leaflet-bar");
     var button = L.DomUtil.create("a", "leaflet-control-refresh-button", control);
 
-    button.innerHTML = "load markers";
+    button.innerHTML = "search sites";
     button.href = "#";
 
     L.DomEvent
