@@ -50,6 +50,10 @@ router.get('/:sigle', function(req, res, next) {
   sql('site', [sigle], function(err, result) {
     var site = result.rows[0];
 
+    if (!site) {
+      return res.sendStatus(404);
+    }
+
     sql('dates', [sigle], function(err, result) {
       site = Object.assign(site, result.rows[0]);
 
