@@ -26,6 +26,24 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/stats', function(req, res, next) {
+  var bbox = '-180,0,180,90'.split(',').map(Number);
+  sql('sites', bbox, function(err, result) {
+    res.format({
+      html: function() {
+        res.render('stats', {
+          sites: result.rows,
+          version: version,
+          title: 'Pollen Chart stats'
+        });
+      },
+      json: function() {
+        res.json(result.rows);
+      }
+    });
+  });
+});
+
 router.get('/:sigle', function(req, res, next) {
   var sigle = req.params.sigle.toUpperCase();
 
