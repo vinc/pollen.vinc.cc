@@ -61,7 +61,7 @@ router.get('/:sigle', function(req, res, next) {
         html: function() {
           res.render('sites', {
             version: version,
-            title: 'Pollen Chart',
+            title: 'Pollen chart for ' + sigle,
             site: site
           });
         },
